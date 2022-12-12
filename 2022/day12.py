@@ -1,4 +1,5 @@
 from util import readfile, Position, Grid
+from queue import Queue
 from typing import Tuple, List
 
 
@@ -24,30 +25,40 @@ def load_grid(filepath: str) -> Tuple[List, Position, Position]:
     return grid, start, end, low_points
 
 
-def set_cost_r(grid: Grid, costs: Grid, p: Position, cost: int):
-    costs.set_value_at(p, cost)
-    height = grid.get_value_at(p)
-    for direction in Position.directions:
-        next_pos = p.get_next_pos(direction)
-        if (grid.within_bounds(next_pos) and
-            grid.get_value_at(next_pos) <= height + 1 and
-            costs.get_value_at(next_pos) > cost + 1):
-            set_cost_r(grid, costs, next_pos, cost + 1)
 
+def breadth_first_search(grid: Grid, low_points: List[Position], end: Position):
+    costs = Grid(grid.width, grid.height, 0)
+    costs.set_value_at(end, 0)
+
+    queue = Queue()
+    queue.put(end)
+    
+    while not queue.empty():
+        p = queue.get()
+        if p in low_points:
+            return cost + 1
+        cost = costs.get_value_at(p)
+        height = grid.get_value_at(p)
+        for direction in Position.directions:
+            next_pos = p.get_next_pos(direction)
+            if (grid.within_bounds(next_pos) and
+                grid.get_value_at(next_pos) >= height - 1 and
+                costs.get_value_at(next_pos) == 0):
+                queue.put(next_pos)
+                costs.set_value_at(next_pos, cost + 1)
+
+
+    height = grid.get_value_at(p)
+    
 
 def day12_1(filepath: str) -> int:
     grid, start, end, _ = load_grid(filepath)
-    costs = Grid(grid.width, grid.height, float('inf'))
-    set_cost_r(grid, costs, start, 0)
-    return costs.get_value_at(end)
+    return breadth_first_search(grid, [start], end)
 
 
 def day12_2(filepath: str) -> int:
-    grid, start, end, low_points = load_grid(filepath)
-    costs = Grid(grid.width, grid.height, float('inf'))
-    for p in low_points:
-        set_cost_r(grid, costs, p, 0)
-    return costs.get_value_at(end)
+    grid, _, end, low_points = load_grid(filepath)
+    return breadth_first_search(grid, low_points, end)
 
 
 if __name__ == "__main__":

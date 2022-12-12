@@ -45,8 +45,17 @@ def parse_int(s: str) -> int:
 
 def parse_line_bloc(bloc: List[str]) -> tuple:
     items = [Item(int(x)) for x in bloc[0].split(': ')[-1].split(', ')]
+    
     op = bloc[1].split('= ')[1]
-    inspection_fn = lambda old : eval(op)
+    if op.endswith('old'):
+        inspection_fn = lambda old: pow(old, 2)
+    else:
+        x = int(op.split(' ')[-1])
+        if op.split(' ')[-2] == '+':
+            inspection_fn = lambda old: old + x
+        else:
+            inspection_fn = lambda old: old * x
+    
     divisor = parse_int(bloc[2])
     true_destination = parse_int(bloc[3])
     false_destination = parse_int(bloc[4])
@@ -66,7 +75,7 @@ def day11(filepath: str, nb_rounds: int, part1: bool) -> int:
         Item.decrease_worry_fn = lambda x : x // 3
     else:
         constant = lcm(*[monkey.divisor for monkey in monkeys])
-        Item.decrease_worry_fn = lambda x : x - (x // constant) * constant if x > constant else x
+        Item.decrease_worry_fn = lambda x : x % constant
     
     for _ in range(nb_rounds):
         for monkey in monkeys:
