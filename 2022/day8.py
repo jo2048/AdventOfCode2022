@@ -1,45 +1,47 @@
 from typing import List
-from util import readfile, Position
+from util import readfile, Position, Grid
 
 
-def visible_from_dir(grid: List[str], i: int, j: int, direction: str, height: int):
-    next_i, next_j = Position.get_next_pos(i, j, direction)
-    if 0 <= next_i < len(grid) and 0 <= next_j < len(grid):
-        return grid[next_i][next_j] < height and visible_from_dir(grid, next_i, next_j, direction, height)
+def visible_from_dir(grid: Grid, p: Position, direction: str, height: int):
+    next_pos = p.get_next_pos(direction)
+    if grid.within_bounds(next_pos):
+        return grid.get_value_at(next_pos) < height and visible_from_dir(grid, next_pos, direction, height)
     return True       
     
 
 def day8_1(filepath: str) -> int:
-    grid = readfile(filepath)
-    count = len(grid) * 4 - 4 
+    grid = Grid.init_from_str_list(readfile(filepath))
+    count = grid.width * 4 - 4 
     
-    for i in range(1, len(grid) - 1):
-        for j in range(1, len(grid) - 1):
+    for i in range(1, grid.height - 1):
+        for j in range(1, grid.width - 1):
+            p = Position(i, j)
             for direction in Position.directions:
-                if visible_from_dir(grid, i, j, direction, grid[i][j]):
+                if visible_from_dir(grid, p, direction, grid.get_value_at(p)):
                     count += 1
                     break 
     return count
 
 
-def nb_visible_trees(grid: List[str], i: int, j: int, direction: str, height: int):
-    next_i, next_j = Position.get_next_pos(i, j, direction)
-    if 0 <= next_i < len(grid) and 0 <= next_j < len(grid):
-        if grid[next_i][next_j] >= height:
+def nb_visible_trees(grid: Grid, p: Position, direction: str, height: int):
+    next_pos = p.get_next_pos(direction)
+    if grid.within_bounds(next_pos):
+        if grid.get_value_at(next_pos) >= height:
             return 1
-        return 1 + nb_visible_trees(grid, next_i, next_j, direction, height)
+        return 1 + nb_visible_trees(grid, next_pos, direction, height)
     return 0
 
 
 def day8_2(filepath: str) -> int:
-    grid = readfile(filepath)
+    grid = Grid.init_from_str_list(readfile(filepath))
     max_score = 1
     
-    for i in range(1, len(grid) - 1):
-        for j in range(1, len(grid) - 1):
+    for i in range(1, grid.height - 1):
+        for j in range(1, grid.width - 1):
             tree_score = 1
+            p = Position(i, j)
             for direction in Position.directions:
-                tree_score *= nb_visible_trees(grid, i, j, direction, grid[i][j])
+                tree_score *= nb_visible_trees(grid, p, direction, grid.get_value_at(p))
             max_score = max(max_score, tree_score)
     return max_score
     

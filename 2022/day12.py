@@ -1,10 +1,10 @@
-from util import readfile, Position
+from util import readfile, Position, Grid
 from typing import Tuple, List
 
 
 def load_grid(filepath: str) -> Tuple[List, Position, Position]:
     lines = readfile(filepath)
-    grid = [[] for _ in range(len(lines))]
+    grid = Grid(len(lines[0]), len(lines))
     start = None
     end = None
     low_points = []
@@ -13,42 +13,41 @@ def load_grid(filepath: str) -> Tuple[List, Position, Position]:
             if c == 'S':
                 start = Position(i, j)
                 low_points.append(start)
-                grid[i].append(1)
+                grid.set_value_at(Position(i, j), 1)
             elif c == 'E':
                 end = Position(i, j)
-                grid[i].append(26)
+                grid.set_value_at(Position(i, j), 26)
             else:
-                grid[i].append(ord(c) - 96)
+                grid.set_value_at(Position(i, j), ord(c) - 96)
                 if c == 'a':
                     low_points.append(Position(i, j))
     return grid, start, end, low_points
 
 
-def set_cost_r(grid, costs, position, cost):
-    costs[position.x][position.y] = cost 
-    height = grid[position.x][position.y]
+def set_cost_r(grid: Grid, costs: Grid, p: Position, cost: int):
+    costs.set_value_at(p, cost)
+    height = grid.get_value_at(p)
     for direction in Position.directions:
-        next_pos = Position(*Position.get_next_pos(position.x, position.y, direction))
-        if (0 <= next_pos.x < len(grid) and 
-            0 <= next_pos.y < len(grid[0]) and
-            grid[next_pos.x][next_pos.y] <= height + 1 and
-            costs[next_pos.x][next_pos.y] > cost + 1):
+        next_pos = p.get_next_pos(direction)
+        if (grid.within_bounds(next_pos) and
+            grid.get_value_at(next_pos) <= height + 1 and
+            costs.get_value_at(next_pos) > cost + 1):
             set_cost_r(grid, costs, next_pos, cost + 1)
 
 
 def day12_1(filepath: str) -> int:
     grid, start, end, _ = load_grid(filepath)
-    costs = [[float('inf')]* len(grid[0]) for _ in range(len(grid))]
+    costs = Grid(grid.width, grid.height, float('inf'))
     set_cost_r(grid, costs, start, 0)
-    return costs[end.x][end.y]
+    return costs.get_value_at(end)
 
 
 def day12_2(filepath: str) -> int:
     grid, start, end, low_points = load_grid(filepath)
-    costs = [[float('inf')]* len(grid[0]) for _ in range(len(grid))]
+    costs = Grid(grid.width, grid.height, float('inf'))
     for p in low_points:
         set_cost_r(grid, costs, p, 0)
-    return costs[end.x][end.y]
+    return costs.get_value_at(end)
 
 
 if __name__ == "__main__":
