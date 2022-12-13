@@ -25,10 +25,8 @@ def part2(filepath: str, nb: int) -> int:
         else:
             cnt += int(l)
     
-    total = 0   
-    for _ in range(nb):
-        total += elves.pop(elves.index(max(elves)))
-    return total
+    elves.sort(reverse=True)
+    return sum(elves[0:nb])
 
 
 if __name__ == "__main__":

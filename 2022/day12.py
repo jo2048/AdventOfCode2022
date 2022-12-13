@@ -46,9 +46,6 @@ def breadth_first_search(grid: Grid, low_points: List[Position], end: Position):
                 costs.get_value_at(next_pos) == 0):
                 queue.put(next_pos)
                 costs.set_value_at(next_pos, cost + 1)
-
-
-    height = grid.get_value_at(p)
     
 
 def day12_1(filepath: str) -> int:
@@ -62,7 +59,5 @@ def day12_2(filepath: str) -> int:
 
 
 if __name__ == "__main__":
-    import sys
-    sys.setrecursionlimit(2000)
     print(day12_1("inputs/day12.in"))
     print(day12_2("inputs/day12.in"))
