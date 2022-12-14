@@ -9,15 +9,15 @@ def load_grid(filepath: str) -> Tuple[List, Position, Position]:
     start = None
     end = None
     low_points = []
-    for i, line in enumerate(lines):
-        for j, c in enumerate(line):
+    for j, line in enumerate(lines):
+        for i, c in enumerate(line):
             if c == 'S':
                 start = Position(i, j)
                 low_points.append(start)
-                grid.set_value_at(Position(i, j), 1)
+                grid.set_value_at(start, 1)
             elif c == 'E':
                 end = Position(i, j)
-                grid.set_value_at(Position(i, j), 26)
+                grid.set_value_at(end, 26)
             else:
                 grid.set_value_at(Position(i, j), ord(c) - 96)
                 if c == 'a':
