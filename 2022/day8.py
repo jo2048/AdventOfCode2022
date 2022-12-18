@@ -3,7 +3,7 @@ from util import readfile, Position, Grid
 
 
 def visible_from_dir(grid: Grid, p: Position, direction: str, height: int):
-    next_pos = p.get_next_pos(direction)
+    next_pos = p.get_next(direction)
     if grid.within_bounds(next_pos):
         return grid.get_value_at(next_pos) < height and visible_from_dir(grid, next_pos, direction, height)
     return True       
@@ -24,7 +24,7 @@ def day8_1(filepath: str) -> int:
 
 
 def nb_visible_trees(grid: Grid, p: Position, direction: str, height: int):
-    next_pos = p.get_next_pos(direction)
+    next_pos = p.get_next(direction)
     if grid.within_bounds(next_pos):
         if grid.get_value_at(next_pos) >= height:
             return 1

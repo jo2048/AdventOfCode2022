@@ -71,8 +71,8 @@ def detect_walls(lines: List[str], left_shift: int=0) -> List[Position]:
 
 
 def drop(p: Position, valid_position_condition: callable):
-    down_p = p.get_next_pos('D')
-    for next_p in (down_p, down_p.get_next_pos('L'), down_p.get_next_pos('R')):
+    down_p = p.get_next('D')
+    for next_p in (down_p, down_p.get_next('L'), down_p.get_next('R')):
         if valid_position_condition(next_p):
             return next_p
     return p
@@ -84,7 +84,7 @@ def flood(
         mark_sand_fn: callable, 
         end_condition: callable):
     next_p = start_p
-    p = next_p.get_next_pos('U')
+    p = next_p.get_next('U')
     lifo = []
     i = 0
     while True:
@@ -111,7 +111,7 @@ def day14_1(filepath: str) -> int:
     return flood(Position(500 - left_shift, 0),
                  lambda p: grid.within_bounds(p) and grid.get_value_at(p) == GRID_DEFAULT,
                  lambda p: grid.set_value_at(p, 'o'),
-                 lambda p: not grid.within_bounds(p.get_next_pos('D'))) - 1
+                 lambda p: not grid.within_bounds(p.get_next('D'))) - 1
 
 
 def day14_2(filepath: str) -> int:

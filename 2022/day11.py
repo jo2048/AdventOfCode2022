@@ -1,10 +1,10 @@
 from util import readfile
-from typing import List, Callable
+from typing import List
 from math import lcm
 
 
 class Item:
-    decrease_worry_fn: Callable = None
+    decrease_worry_fn: callable = None
 
     def __init__(self, worry_level: int):
         self.worry_level = worry_level
@@ -14,7 +14,7 @@ class Item:
 
 
 class Monkey:
-    def __init__(self, monkeys: list, items: List[Item], inspection_fn: Callable, divisor: int, true_destination: int, false_destination: int):
+    def __init__(self, monkeys: list, items: List[Item], inspection_fn: callable, divisor: int, true_destination: int, false_destination: int):
         self.monkeys = monkeys
         self.inspection_fn = inspection_fn
         self.divisor = divisor

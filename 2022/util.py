@@ -18,10 +18,10 @@ class Position:
         self.x = x
         self.y = y
 
-    def get_next_pos(self, direction: str) -> Position:
-        if direction == 'L':
+    def get_next(self, direction: str) -> Position:
+        if direction in ('L', '<'):
             return Position(self.x - 1, self.y)
-        elif direction == 'R':
+        elif direction in ('R', '>'):
             return Position(self.x + 1, self.y)
         elif direction == 'U':
             return Position(self.x, self.y - 1)
@@ -47,7 +47,7 @@ class Grid:
     def within_bounds(self, p: Position) -> bool:
         return 0 <= p.x < self.width and 0 <= p.y < self.height
 
-    def get_value_at(self, p: position):
+    def get_value_at(self, p: Position):
         return self.cells[p.y][p.x]
 
     def set_value_at(self, p: Position, value):

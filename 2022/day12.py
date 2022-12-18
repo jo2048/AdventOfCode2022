@@ -40,7 +40,7 @@ def breadth_first_search(grid: Grid, low_points: List[Position], end: Position):
         cost = costs.get_value_at(p)
         height = grid.get_value_at(p)
         for direction in Position.directions:
-            next_pos = p.get_next_pos(direction)
+            next_pos = p.get_next(direction)
             if (grid.within_bounds(next_pos) and
                 grid.get_value_at(next_pos) >= height - 1 and
                 costs.get_value_at(next_pos) == 0):

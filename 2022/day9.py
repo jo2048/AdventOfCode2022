@@ -8,7 +8,7 @@ class Rope(Position):
         self.tail = tail
     
     def apply_move(self, direction):
-        p = self.get_next_pos(direction)
+        p = self.get_next(direction)
         self.x, self.y = p.x, p.y
         self.move_tail()
 
