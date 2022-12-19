@@ -1,8 +1,9 @@
 */inputs/
 */__pycache__/
-2021
 
-*/test.in
+*test*
+
+*.code-workspace
 
 
 # Byte-compiled / optimized / DLL files

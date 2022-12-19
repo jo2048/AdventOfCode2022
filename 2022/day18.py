@@ -49,11 +49,14 @@ def within_bounds(p, bounds):
     return all (-1 <= p[i] <= bounds[i] for i in range(3))
 
 
-def dfs(p, marked_points: set, lava: set, bounds):
-    for side in get_neighbors(p):
-        if within_bounds(p, bounds) and not (side in lava or side in marked_points):
-            marked_points.add(side)
-            dfs(side, marked_points, lava, bounds) 
+def dfs(start_p, marked_points: set, lava: set, bounds):
+    queue = [start_p]
+    while len(queue) > 0:
+        p = queue.pop()
+        for side in get_neighbors(p):
+            if within_bounds(p, bounds) and not (side in lava or side in marked_points):
+                marked_points.add(side)
+                queue.append(side)
 
 
 def day18_2(filepath: str) -> int:
@@ -74,7 +77,5 @@ def day18_2(filepath: str) -> int:
 
 
 if __name__ == "__main__":
-    import sys
-    sys.setrecursionlimit(8000)
     print(day18_1("inputs/day18.in"))
     print(day18_2("inputs/day18.in"))
