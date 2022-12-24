@@ -19,9 +19,9 @@ class Position:
         self.y = y
 
     def get_next(self, direction: str) -> Position:
-        if direction in ('L', '<'):
+        if direction in 'L<':
             return Position(self.x - 1, self.y)
-        elif direction in ('R', '>'):
+        elif direction in 'R>':
             return Position(self.x + 1, self.y)
         elif direction == 'U':
             return Position(self.x, self.y - 1)
@@ -35,7 +35,7 @@ class Position:
         return hash((self.x, self.y))
 
     def __str__(self):
-        return f'(x = {self.x} ;y = {self.y})'
+        return f'(x = {self.x}; y = {self.y})'
 
 
 class Grid:
