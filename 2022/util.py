@@ -1,6 +1,7 @@
 from __future__ import annotations
 from typing import Tuple, List
-
+from queue import PriorityQueue
+ 
 
 def readfile(filepath: str, keep_last_empty_line: bool=False) -> list:
     f = open(filepath, 'r')
@@ -14,7 +15,7 @@ def readfile(filepath: str, keep_last_empty_line: bool=False) -> list:
 class Position:
     directions = ['L', 'U', 'R', 'D']
 
-    def __init__(self, x: int=0, y: int=0):
+    def __init__(self, x: int, y: int):
         self.x = x
         self.y = y
 
@@ -23,10 +24,13 @@ class Position:
             return Position(self.x - 1, self.y)
         elif direction in 'R>':
             return Position(self.x + 1, self.y)
-        elif direction == 'U':
+        elif direction in 'U^':
             return Position(self.x, self.y - 1)
-        else:   
+        elif direction == 'D':   
             return Position(self.x, self.y + 1)
+
+    def get_neighors(self):
+        return (self.get_next(direction) for direction in Position.directions)
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
@@ -34,7 +38,10 @@ class Position:
     def __hash__(self):
         return hash((self.x, self.y))
 
-    def __str__(self):
+    def __lt__(self, other):
+         return self.x < other.x
+
+    def __repr__(self):
         return f'(x = {self.x}; y = {self.y})'
 
 
@@ -65,4 +72,24 @@ class Grid:
         for i, line in enumerate(lines):
             grid.cells[i] = line
         return grid
+
+
+def dijkstra(start_vertex, vertices, edges) -> dict:
+    distances = {v: float('inf') for v in vertices}
+    distances[start_vertex] = 0
+
+    visited = set([start_vertex])
+    pq = PriorityQueue()
+    pq.put((0, start_vertex))
+    
+    while not pq.empty():
+        dist, v = pq.get()
+        for neighbor in edges[v]:
+            if neighbor not in visited:
+                new_distance = distances[v] + edges[v][neighbor]
+                if new_distance < distances[neighbor]:
+                    distances[neighbor] = new_distance
+                    pq.put((distances[neighbor], neighbor))
+
+    return distances
 
