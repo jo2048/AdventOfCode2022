@@ -54,5 +54,4 @@ def day25(filepath: str) -> int:
 
 
 if __name__ == "__main__":
-    print(day25("test/day25.in"))
     print(day25("inputs/day25.in"))

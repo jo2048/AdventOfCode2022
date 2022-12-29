@@ -1,7 +1,7 @@
-from __future__ import annotations
 from typing import Tuple, List
 from queue import PriorityQueue
- 
+import collections
+
 
 def readfile(filepath: str, keep_last_empty_line: bool=False) -> list:
     f = open(filepath, 'r')
@@ -10,7 +10,7 @@ def readfile(filepath: str, keep_last_empty_line: bool=False) -> list:
     if not keep_last_empty_line and lines[-1] == '\n':
         lines.pop()
     return [l.strip('\n') for l in lines]
-    
+
 
 class Position:
     directions = ['L', 'U', 'R', 'D']
@@ -19,7 +19,7 @@ class Position:
         self.x = x
         self.y = y
 
-    def get_next(self, direction: str) -> Position:
+    def get_next(self, direction: str):
         if direction in 'L<':
             return Position(self.x - 1, self.y)
         elif direction in 'R>':
@@ -67,7 +67,7 @@ class Grid:
         return s
 
     @staticmethod
-    def init_from_str_list(lines: List[str]) -> Grid:
+    def init_from_str_list(lines: List[str]):
         grid = Grid(len(lines[0]), len(lines))
         for i, line in enumerate(lines):
             grid.cells[i] = line
