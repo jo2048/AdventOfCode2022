@@ -87,13 +87,14 @@ def part2(filepath: str, nb_minutes: int) -> int:
 
 
 if __name__ == '__main__':
-    import time
-    for i in range(1, 27):
-        print(i, ' - ', part2("test/day16.in", i))
-    t  = time.time()
-    # print(part1("inputs/day16.in", 30)) #1720
-    print(part2("inputs/day16.in", 26))
-    t = time.time() - t
-    print(t)
+    print(part1("inputs/day16.in", 30))
+    # import time
+    # for i in range(1, 27):
+    #     print(i, ' - ', part2("test/day16.in", i))
+    # t  = time.time()
+    # # print(part1("inputs/day16.in", 30)) #1720
+    # print(part2("inputs/day16.in", 26))
+    # t = time.time() - t
+    # print(t)
     
     # print(day16_2("test/day16.in"))

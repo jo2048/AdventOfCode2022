@@ -3,7 +3,7 @@ from queue import PriorityQueue
 import collections
 
 
-def readfile(filepath: str, keep_last_empty_line: bool=False) -> list:
+def readfile(filepath: str, keep_last_empty_line: bool = False) -> list:
     f = open(filepath, 'r')
     lines = f.readlines()
     f.close()
@@ -26,20 +26,20 @@ class Position:
             return Position(self.x + 1, self.y)
         elif direction in 'U^':
             return Position(self.x, self.y - 1)
-        elif direction == 'D':   
+        elif direction == 'D':
             return Position(self.x, self.y + 1)
 
     def get_neighors(self):
-        return (self.get_next(direction) for direction in Position.directions)
+        return Position(self.x - 1, self.y), Position(self.x + 1, self.y), Position(self.x, self.y - 1), Position(self.x, self.y + 1)
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
-    
+
     def __hash__(self):
         return hash((self.x, self.y))
 
     def __lt__(self, other):
-         return self.x < other.x
+        return self.x < other.x
 
     def __repr__(self):
         return f'(x = {self.x}; y = {self.y})'
@@ -81,7 +81,7 @@ def dijkstra(start_vertex, vertices, edges) -> dict:
     visited = set([start_vertex])
     pq = PriorityQueue()
     pq.put((0, start_vertex))
-    
+
     while not pq.empty():
         dist, v = pq.get()
         for neighbor in edges[v]:
@@ -92,4 +92,3 @@ def dijkstra(start_vertex, vertices, edges) -> dict:
                     pq.put((distances[neighbor], neighbor))
 
     return distances
-

@@ -87,11 +87,11 @@ def day23(filepath: str, nb_rounds):
         new_positions = elves[:]
         move_elves(new_positions, i)
         if set(new_positions) == set(elves):
-            return 'part2 : ', i + 1
+            return i + 1
         elves = new_positions
 
     min_x, max_x, min_y, max_y = get_bounds(elves)
-    return 'part1 : ', (max_x + 1 - min_x) * (max_y + 1 - min_y) - len(elves) 
+    return (max_x + 1 - min_x) * (max_y + 1 - min_y) - len(elves) 
 
 
 if __name__ == "__main__":
