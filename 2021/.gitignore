@@ -1,0 +1,14 @@
+src/main/resources/inputs/*
+
+# Gradle
+.gradle
+/build/
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# IntelliJ
+.idea
+*.iml
+*.ipr
+*.iws
+out/
