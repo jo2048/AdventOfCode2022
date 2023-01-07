@@ -9,4 +9,9 @@ public record Point(int x, int y) {
         Point point = (Point) o;
         return x == point.x && y == point.y;
     }
+
+    public static Point loadFromString(String s) {
+        String[] arr = s.split(",");
+        return new Point(Integer.parseInt(arr[0]), Integer.parseInt(arr[1]));
+    }
 }

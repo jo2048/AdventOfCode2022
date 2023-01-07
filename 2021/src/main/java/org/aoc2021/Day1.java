@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import static org.aoc2021.Util.readFile;
 
-public class Day1 {
+public class Day1 implements Day {
 
     private final List<Integer> values;
 
@@ -17,7 +17,8 @@ public class Day1 {
         values = readFile(filepath).stream().map(Integer::parseInt).collect(Collectors.toList());
     }
 
-    public int part1() {
+    @Override
+    public String part1() {
         int result = 0;
         int old_val = Integer.MAX_VALUE;
         for (int val: values) {
@@ -25,10 +26,11 @@ public class Day1 {
                 result += 1;
             old_val = val;
         }
-        return result;
+        return String.valueOf(result);
     }
 
-    public int part2() {
+    @Override
+    public String part2() {
         int result = 0;
         int old_val = Integer.MAX_VALUE;
         for (int i = 0; i < values.size() - 2; i++) {
@@ -37,7 +39,7 @@ public class Day1 {
                 result += 1;
             old_val = val;
         }
-        return result;
+        return String.valueOf(result);
     }
 
     private int sumArrayElements(int startIndex) {

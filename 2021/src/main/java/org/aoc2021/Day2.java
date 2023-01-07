@@ -2,7 +2,7 @@ package org.aoc2021;
 
 import java.util.List;
 
-public class Day2 {
+public class Day2 implements Day {
 
     private final List<String> lines;
 
@@ -10,8 +10,8 @@ public class Day2 {
         lines = Util.readFile("inputs/day2.in");
     }
 
-
-    public int part1() {
+    @Override
+    public String part1() {
         int x = 0;
         int y = 0;
         for (String line: lines) {
@@ -22,10 +22,11 @@ public class Day2 {
                 default -> x += cmd.val;
             }
         }
-        return x * y;
+        return String.valueOf(x * y);
     }
 
-    public int part2() {
+    @Override
+    public String part2() {
         int x = 0;
         int y = 0;
         int aim = 0;
@@ -40,7 +41,7 @@ public class Day2 {
                 }
             }
         }
-        return x * y;
+        return String.valueOf(x * y);
     }
 
     private static class Command {

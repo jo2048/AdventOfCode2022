@@ -2,7 +2,7 @@ package org.aoc2021;
 
 import java.util.HashMap;
 
-public class Day6 {
+public class Day6 implements Day {
 
     private final int[] fishes;
     private final HashMap<Point, Long> memo;
@@ -41,11 +41,11 @@ public class Day6 {
         return total;
     }
 
-    public long part1() {
-        return totalFishesAfter(80);
+    public String part1() {
+        return String.valueOf(totalFishesAfter(80));
     }
 
-    public long part2() {
-        return totalFishesAfter(256);
+    public String part2() {
+        return String.valueOf(totalFishesAfter(256));
     }
 }
