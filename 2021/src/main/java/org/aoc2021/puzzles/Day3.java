@@ -1,6 +1,6 @@
-package org.aoc2021;
+package org.aoc2021.puzzles;
 
-public class Day3 implements Day {
+public class Day3 implements Puzzle {
 
 
     @Override

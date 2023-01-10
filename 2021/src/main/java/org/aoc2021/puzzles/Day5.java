@@ -1,10 +1,13 @@
-package org.aoc2021;
+package org.aoc2021.puzzles;
+
+import org.aoc2021.util.Point;
+import org.aoc2021.util.Util;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Day5 implements Day {
+public class Day5 implements Puzzle {
 
     private final List<Vent> vents;
 

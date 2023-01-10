@@ -1,8 +1,10 @@
-package org.aoc2021;
+package org.aoc2021.puzzles;
+
+import org.aoc2021.util.Util;
 
 import java.util.List;
 
-public class Day2 implements Day {
+public class Day2 implements Puzzle {
 
     private final List<String> lines;
 

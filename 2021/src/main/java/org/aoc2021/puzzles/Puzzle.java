@@ -1,6 +1,6 @@
-package org.aoc2021;
+package org.aoc2021.puzzles;
 
-public interface Day {
+public interface Puzzle {
 
     String part1();
     String part2();

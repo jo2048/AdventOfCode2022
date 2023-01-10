@@ -1,4 +1,4 @@
-package org.aoc2021;
+package org.aoc2021.util;
 
 import java.io.IOException;
 import java.net.URL;

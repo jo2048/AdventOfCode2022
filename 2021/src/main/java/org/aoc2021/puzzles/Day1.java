@@ -1,11 +1,11 @@
-package org.aoc2021;
+package org.aoc2021.puzzles;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.aoc2021.Util.readFile;
+import static org.aoc2021.util.Util.readFile;
 
-public class Day1 implements Day {
+public class Day1 implements Puzzle {
 
     private final List<Integer> values;
 

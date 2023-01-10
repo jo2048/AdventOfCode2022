@@ -1,8 +1,11 @@
-package org.aoc2021;
+package org.aoc2021.puzzles;
+
+import org.aoc2021.util.Point;
+import org.aoc2021.util.Util;
 
 import java.util.HashMap;
 
-public class Day6 implements Day {
+public class Day6 implements Puzzle {
 
     private final int[] fishes;
     private final HashMap<Point, Long> memo;
