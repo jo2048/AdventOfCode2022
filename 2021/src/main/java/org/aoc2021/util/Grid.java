@@ -8,19 +8,19 @@ public class Grid {
 
     public final int width;
     public final int height;
-    private short[][] array;
+    private final int[][] array;
 
     public Grid(int width, int height) {
         this.width = width;
         this.height = height;
-        array = new short[height][width];
+        array = new int[height][width];
     }
 
-    public void setValue(Point p, short value) {
+    public void setValue(Point p, int value) {
         array[p.y()][p.x()] = value;
     }
 
-    public short getValue(Point p) {
+    public int getValue(Point p) {
         return array[p.y()][p.x()];
     }
 
@@ -29,11 +29,29 @@ public class Grid {
     }
 
     public List<Point> getNeighbors(Point p) {
-        return Arrays.stream(p.getNeighbors()).filter(this::withinBounds).collect(Collectors.toList());
+        return getNeighbors(p, false);
+    }
+
+    public List<Point> getNeighbors(Point p, boolean includeDiagonal) {
+        return p.getNeighbors(includeDiagonal).stream().filter(this::withinBounds).collect(Collectors.toList());
+    }
+
+    public void incrementCell(Point p, int x) {
+        array[p.y()][p.x()] += x;
+    }
+
+    public void incrementAllCells(int x) {
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++)
+                array[i][j] += x;
+        }
     }
 
     @Override
     public String toString() {
-        return Arrays.deepToString(array);
+        StringBuilder s = new StringBuilder();
+        for (int[] row : array)
+            s.append(Arrays.toString(row)).append("\n");
+        return s.toString();
     }
 }
