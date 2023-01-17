@@ -1,6 +1,8 @@
 package org.aoc2021.util;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +16,25 @@ public class Grid {
         this.width = width;
         this.height = height;
         array = new int[height][width];
+    }
+
+    public Grid(Collection<Point> points) {
+        int xMax = 0, yMax = 0;
+        int xMin = Integer.MAX_VALUE, yMin = Integer.MAX_VALUE;
+        for (Point p: points) {
+            xMax = Math.max(xMax, p.x());
+            yMax = Math.max(yMax, p.y());
+            xMin = Math.min(xMin, p.x());
+            yMin = Math.min(yMin, p.y());
+        }
+
+        width = xMax - xMin + 1;
+        height = yMax - yMin + 1;
+        array = new int[height][width];
+
+        Point origin = new Point(-xMin, -yMin);
+        for (Point p: points)
+            setValue(p.delta(origin), 1);
     }
 
     public void setValue(Point p, int value) {
@@ -52,6 +73,16 @@ public class Grid {
         StringBuilder s = new StringBuilder();
         for (int[] row : array)
             s.append(Arrays.toString(row)).append("\n");
+        return s.toString();
+    }
+
+    public String betterDisplay() {
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++)
+                s.append(array[i][j] == 1 ? "#" : " ");
+            s.append("\n");
+        }
         return s.toString();
     }
 }

@@ -32,6 +32,10 @@ public record Point(int x, int y) {
         return list.subList(0, 4);
     }
 
+    public Point delta(Point o) {
+        return new Point(x + o.x, y + o.y);
+    }
+
     public static Point loadFromString(String s) {
         String[] arr = s.split(",");
         return new Point(Integer.parseInt(arr[0]), Integer.parseInt(arr[1]));
