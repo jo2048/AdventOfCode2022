@@ -2,7 +2,6 @@ package org.aoc2021.util;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +34,15 @@ public class Grid {
         Point origin = new Point(-xMin, -yMin);
         for (Point p: points)
             setValue(p.delta(origin), 1);
+    }
+
+    public Grid(List<String> lines) {
+        this(lines.get(0).length(), lines.size());
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
+            for (int j = 0; j < line.length(); j++)
+                array[i][j] = Integer.parseInt(line.substring(j, j + 1));
+        }
     }
 
     public void setValue(Point p, int value) {

@@ -5,10 +5,11 @@ public interface Puzzle {
     String part1();
     String part2();
     default String getResult() {
-        return getClass().getName() +
+        return getClass().getSimpleName() +
                 "\n" +
                 part1() +
                 "\n" +
-                part2();
+                part2() +
+                "\n";
     }
 }

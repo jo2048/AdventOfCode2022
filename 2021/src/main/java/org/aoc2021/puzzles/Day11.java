@@ -5,7 +5,6 @@ import org.aoc2021.util.Point;
 import org.aoc2021.util.Util;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Day11 implements Puzzle {
@@ -19,14 +18,7 @@ public class Day11 implements Puzzle {
     }
 
     public Day11(String filepath) {
-        List<String> lines = Util.readFile(filepath);
-        grid = new Grid(lines.get(0).length(), lines.size());
-        for (int i = 0; i < lines.size(); i++) {
-            String line = lines.get(i);
-            for (int j = 0; j < line.length(); j++)
-                grid.setValue(new Point(j, i), Short.parseShort(line.substring(j, j + 1)));
-        }
-
+        grid = new Grid(Util.readFile(filepath));
         part1Result = -1;
         part2Result = -1;
     }

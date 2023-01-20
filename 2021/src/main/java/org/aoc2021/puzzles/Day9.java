@@ -13,12 +13,7 @@ public class Day9 implements Puzzle {
     }
 
     public Day9(String filepath) {
-        List<String> lines = Util.readFile(filepath);
-        grid = new Grid(lines.get(0).length(), lines.size());
-        for (int i = 0; i < lines.size(); i++) {
-            for (int j = 0; j < lines.get(0).length(); j ++)
-                grid.setValue(new Point(j, i), Short.parseShort(lines.get(i).substring(j, j + 1)));
-        }
+        grid = new Grid(Util.readFile(filepath));
     }
 
     private List<Point> findLowPoints() {
