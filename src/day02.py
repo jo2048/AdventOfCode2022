@@ -17,10 +17,7 @@ def compute_score_part1(p1: str, p2: str):
     if x == y:
         return score + 3
     elif abs(x - y) == 2:
-        if x == 0:
-            return score
-        else:
-            return score + 6
+        return score if x == 0 else score + 6
     else:
         if x > y:
             return score

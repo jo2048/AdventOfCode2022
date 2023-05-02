@@ -36,10 +36,9 @@ def day13_2(filepath: str) -> int:
     data.sort(key=functools.cmp_to_key(check), reverse=True)
     data = list(map(str, data))
 
-    return (data.index('[[2]]') + 1) *  (data.index('[[6]]') + 1) 
+    return (data.index('[[2]]') + 1)  *  (data.index('[[6]]') + 1) 
     
 
 if __name__ == "__main__":
     print(day13_1("inputs/day13.in"))
     print(day13_2("inputs/day13.in"))
-

@@ -78,15 +78,16 @@ def dijkstra(start_vertex, vertices, edges) -> dict:
     distances = {v: float('inf') for v in vertices}
     distances[start_vertex] = 0
 
-    visited = set([start_vertex])
+    visited = set()
     pq = PriorityQueue()
     pq.put((0, start_vertex))
 
     while not pq.empty():
         dist, v = pq.get()
+        visited.add(v)
         for neighbor in edges[v]:
             if neighbor not in visited:
-                new_distance = distances[v] + edges[v][neighbor]
+                new_distance = dist + edges[v][neighbor]
                 if new_distance < distances[neighbor]:
                     distances[neighbor] = new_distance
                     pq.put((distances[neighbor], neighbor))

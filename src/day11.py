@@ -28,15 +28,15 @@ class Monkey:
         self.items.append(item)
 
     def inspect_items(self):
-        while len(self.items) > 0:
-            item = self.items.pop()
-            self.inspection_cnt += 1
+        for item in self.items:
             item.worry_level = self.inspection_fn(item.worry_level)
             item.decrease_worry_level()
             if item.worry_level % self.divisor == 0:
                 self.monkeys[self.true_destination].add_item(item)
             else:
                 self.monkeys[self.false_destination].add_item(item)
+        self.inspection_cnt += len(self.items)
+        self.items = []
 
 
 def parse_int(s: str) -> int:
